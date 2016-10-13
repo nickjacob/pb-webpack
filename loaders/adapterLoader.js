@@ -7,9 +7,10 @@
 const fs = require('fs');
 const blockLoader = require('block-loader');
 const getAdapters = require('./getAdapters');
+const path = require('path');
 
-const adapters = getAdapters('adapters.json', 'adapters');
-const files = fs.readdirSync('src/adapters').map((file) => file.replace(/\.[^/.]+$/, ''));
+const adapters = getAdapters(path.join(__dirname, '../adapters.json'), 'adapters');
+const files = fs.readdirSync(path.join(__dirname, '../src/adapters')).map((file) => file.replace(/\.[^/.]+$/, ''));
 const adapterNames = adapters.filter(getStandardAdapters).filter(getUniques);
 //adapters loaded from `srcPath`
 const customAdapters = adapters.map(getCustomAdapters).filter(adapter => {
@@ -47,9 +48,9 @@ function insertAdapters() {
   });
 
   inserts = inserts.map(name => {
-    return `var ${adapterName(name)} = require('./adapters/${name}.js');
+      return `var ${adapterName(name)} = require('./adapters/${name}.js');
     exports.registerBidAdapter(new ${adapterName(name)}(), '${name}');\n`;
-  })
+    })
     .concat(customAdapters.map(adapter => {
       return `let ${adapter.name} = require('${adapter.srcPath}');
       exports.registerBidAdapter(new ${adapter.name}, '${adapter.name}');\n`;

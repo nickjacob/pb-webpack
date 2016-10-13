@@ -7,7 +7,7 @@ import bidManager from '../../../src/bidmanager';
 import adapter from '../../../src/adapters/adform';
 
 describe('Adform adapter', () => {
-  let _adapter, sandbox;
+  let _adapter, sandbox; 
 
   describe('request', () => {
     it('should create callback method on PREBID_GLOBAL', () => {
@@ -32,6 +32,7 @@ describe('Adform adapter', () => {
       assert.equal(_query.rp, 4);
       assert.equal(_query.url, encodeURIComponent('some// there'));
     });
+
 
     it('should correctly form bid items', () => {
       const _items = parseUrl(adLoader.loadScript.args[0][0]).items;
@@ -59,7 +60,10 @@ describe('Adform adapter', () => {
       assert.equal(_bidObject.ad, '<tag>');
       assert.equal(_bidObject.width, 90);
       assert.equal(_bidObject.height, 90);
+<<<<<<< HEAD
       assert.equal(_bidObject.dealId, 'deal-1');
+=======
+>>>>>>> 2c2b0dd... Adform adapter update (#702)
     });
 
     it('should correctly form empty bid response object', () => {
@@ -96,8 +100,12 @@ describe('Adform adapter', () => {
           height: 90,
           banner: '<tag>',
           win_bid: 1.1,
+<<<<<<< HEAD
           win_cur: 'EUR',
           deal_id: 'deal-1'
+=======
+          win_cur: 'EUR'
+>>>>>>> 2c2b0dd... Adform adapter update (#702)
         },
         {},
         {
@@ -147,7 +155,7 @@ describe('Adform adapter', () => {
             pdom: 'home'
           }
         }
-      ]});
+    ]});
   });
 
   afterEach(() => {
@@ -161,8 +169,12 @@ function parseUrl(url) {
   return {
     path: parts.join('/'),
     items: query
-      .filter((i) => !~i.indexOf('='))
+      .filter((i) => ! ~i.indexOf('='))
+<<<<<<< HEAD
       .map((i) => fromBase64(i)
+=======
+      .map((i) => atob(i)
+>>>>>>> 2c2b0dd... Adform adapter update (#702)
         .split('&')
         .reduce(toObject, {})),
     query: query
@@ -172,6 +184,7 @@ function parseUrl(url) {
   };
 }
 
+<<<<<<< HEAD
 function fromBase64(input) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'.split('');
   let bc = 0, bs, buffer, idx = 0, output = '';
@@ -184,6 +197,8 @@ function fromBase64(input) {
   return output;
 }
 
+=======
+>>>>>>> 2c2b0dd... Adform adapter update (#702)
 function toObject(cache, string) {
   const keyValue = string.split('=');
   cache[keyValue[0]] = keyValue[1];

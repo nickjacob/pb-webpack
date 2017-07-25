@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const blockLoader = require('block-loader');
 const getAdapters = require('./getAdapters');
-let analyticsAdapters = getAdapters('analytics.json', 'analyticsAdapters');
+let analyticsAdapters = getAdapters(path.join(__dirname, 'analytics.json'), 'analyticsAdapters');
 
 var options = {
   start: '/** INSERT ANALYTICS - DO NOT EDIT OR REMOVE */',
